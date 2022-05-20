@@ -51,6 +51,7 @@
 		629CFC1D28361FBE00915F66 /* Poppins-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 629CFC0B28361FBE00915F66 /* Poppins-SemiBold.ttf */; };
 		629CFC1E28361FBE00915F66 /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 629CFC0C28361FBE00915F66 /* Poppins-Medium.ttf */; };
 		629CFC1F28361FBE00915F66 /* Poppins-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 629CFC0D28361FBE00915F66 /* Poppins-BoldItalic.ttf */; };
+		62AD64072837BB51005D51D9 /* NoResults.json in Resources */ = {isa = PBXBuildFile; fileRef = 62AD64062837BB51005D51D9 /* NoResults.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -118,6 +119,7 @@
 		629CFC0C28361FBE00915F66 /* Poppins-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Medium.ttf"; sourceTree = "<group>"; };
 		629CFC0D28361FBE00915F66 /* Poppins-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-BoldItalic.ttf"; sourceTree = "<group>"; };
 		629CFC2028361FF000915F66 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		62AD64062837BB51005D51D9 /* NoResults.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = NoResults.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -300,6 +302,7 @@
 		629CFBEB2836120E00915F66 /* Animations */ = {
 			isa = PBXGroup;
 			children = (
+				62AD64062837BB51005D51D9 /* NoResults.json */,
 				629C268128364E650052D76A /* error.json */,
 				629CFBEE2836149D00915F66 /* Loading.json */,
 				629CFBEC2836149600915F66 /* Splash.json */,
@@ -458,6 +461,7 @@
 				629CFC1328361FBE00915F66 /* Poppins-ExtraLight.ttf in Resources */,
 				629CFC1628361FBE00915F66 /* Poppins-LightItalic.ttf in Resources */,
 				627F77AB28360E4D006BA4CD /* Preview Assets.xcassets in Resources */,
+				62AD64072837BB51005D51D9 /* NoResults.json in Resources */,
 				629CFC1D28361FBE00915F66 /* Poppins-SemiBold.ttf in Resources */,
 				629CFC1828361FBE00915F66 /* Poppins-Italic.ttf in Resources */,
 				629CFC1028361FBE00915F66 /* Poppins-ExtraLightItalic.ttf in Resources */,

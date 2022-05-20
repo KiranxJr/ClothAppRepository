@@ -45,59 +45,39 @@ struct HomeTabView: View {
                     .foregroundColor(.gray)
             } .padding(.horizontal,20)
             // Custom search field view
-            SearchTextFieldView(searchText: $homeData.searchText, searchHint: "Search items...")
+            SearchTextFieldView(searchText: $homeData.searchText, buttonClicked: $homeData.buttonClicked, searchHint: "Search items...")
                 .foregroundColor(.black)
                 .padding(.horizontal,20)
+            // Getting search filed event
+                .onChange(of: homeData.searchText) { newValue in
+                    homeData.buttonClicked = false
+                }
             
             if homeData.loadingHome {
                 // Lottie animation for loading
-                LottieView(name: "Loading", loopMode: .repeat(20))
-                    .padding(.horizontal,20)
-                    .frame(width: getRect().width / 3, height: getRect().width / 3)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity,alignment: .center)
+                ProductLoadingView()
                 
             } else {
                 
                 if homeData.productList.isEmpty {
-                    VStack {
-                        // Lottie animation for error
-                        LottieView(name: "error", loopMode: .playOnce)
-                            .frame(width: getRect().width / 2, height: getRect().width / 2)
-                        Text(homeData.loadErrorText)
-                            .font(.custom(font.semiBold, size: 12))
-                            .foregroundColor(.black)
-                        Button {
-                            // Enables loading screen
-                            homeData.loadingHome = true
-                            // Api call to get product list
-                            homeData.getProductList()
-                        } label: {
-                            HStack {
-                                Image(systemName: "arrow.clockwise.circle.fill")
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(width: 20, height: 20)
-                                    .foregroundColor(Color("Primary"))
-                                Text("Retry")
-                                    .font(.custom(font.semiBold, size: 12))
-                                    .foregroundColor(.black)
-                            }
-                        }
-                        
-                    }  .padding(.horizontal,20)
-                        .frame(maxWidth: .infinity, maxHeight: .infinity,alignment: .center)
+                    ProductErrorView()
                 } else {
-                    // Product list view
-                    ScrollView(.vertical, showsIndicators: false) {
-                        VStack(spacing: 20){
-                            ForEach(homeData.productList) { item in
-                                // product list item view
-                                ItemCardView(item: item)
-                                
-                            }
-                        }  .padding(.horizontal,20)
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    if homeData.filteredProductList.isEmpty {
+                        FilteredErrorView()
+                    } else {
+                        // Product list view
+                        ScrollView(.vertical, showsIndicators: false) {
+                            VStack(spacing: 20){
+                                ForEach(homeData.filteredProductList) { item in
+                                    // product list item view
+                                    ItemCardView(item: item)
+                                    
+                                }
+                            }  .padding(.horizontal,20)
+                                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        }
                     }
+                    
                 }
                 
             }
@@ -114,6 +94,62 @@ struct HomeTabView: View {
             homeData.getProductList()
         }
         
+    }
+    
+    
+    // Subview for loading
+    @ViewBuilder
+    private func ProductLoadingView() -> some View {
+        LottieView(name: "Loading", loopMode: .repeat(20))
+            .padding(.horizontal,20)
+            .frame(width: getRect().width / 3, height: getRect().width / 3)
+            .frame(maxWidth: .infinity, maxHeight: .infinity,alignment: .center)
+    }
+    
+    // Subview for error
+    @ViewBuilder
+    private func ProductErrorView() -> some View {
+        VStack {
+            
+            LottieView(name: "error", loopMode: .playOnce)
+                .frame(width: getRect().width / 2, height: getRect().width / 2)
+            Text(homeData.loadErrorText)
+                .font(.custom(font.semiBold, size: 12))
+                .foregroundColor(.black)
+            Button {
+                // Enables loading screen
+                homeData.loadingHome = true
+                // Api call to get product list
+                homeData.getProductList()
+            } label: {
+                HStack {
+                    Image(systemName: "arrow.clockwise.circle.fill")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 20, height: 20)
+                        .foregroundColor(Color("Primary"))
+                    Text("Retry")
+                        .font(.custom(font.semiBold, size: 12))
+                        .foregroundColor(.black)
+                }
+            }
+            
+        }  .padding(.horizontal,20)
+            .frame(maxWidth: .infinity, maxHeight: .infinity,alignment: .center)
+    }
+   // Subview for filtered error
+    @ViewBuilder
+    private func FilteredErrorView() -> some View {
+        VStack {
+            // No result found animation
+            LottieView(name: "NoResults", loopMode: .playOnce)
+                .padding(.horizontal,20)
+                .frame(width: getRect().width / 3, height: getRect().width / 3)
+            Text("Nothing to show here...")
+                .font(.custom(font.semiBold, size: 12))
+                .foregroundColor(.black)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity,alignment: .center)
     }
     
     // custom view for each product in list
